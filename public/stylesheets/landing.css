@@ -1,0 +1,118 @@
+/*firstly we set the background color to black*/
+body{
+    background-color: #000;
+}
+/*
+z index makes our text elemets out of the plane i.e 0*/
+/*static will not pardon the  z index so we change it*/
+#landing-header{
+    z-index: 1;
+    position:relative;
+    text-align: center;
+        padding-top:15%;
+         
+}
+/*set color of heading to white and z index to more magnitude i.e more out of the screen*/
+#landing-header h1{
+    color:#fff;
+    z-index: 2;
+    /*animation: colorAnimation 25s linear infinite;*/
+}
+
+
+.slideshow{
+    position: fixed;/*not movable*/
+    height: 100%;
+    width: 100%;
+    top:0;
+    left:0;
+    z-index: 0;/*back of the screen i.e less than header id*/
+    list-style:none;/*not showing the bullets */
+    padding:0;
+    margin:0;
+}
+
+.slideshow li{
+    width:100%;/*set to whole screen of the div*/
+    height: 100%;/*set to whole screen of the div*/
+    position:absolute;/*it take the whole screen of the div if  realtive or in this case the whole body i/e  screen*/
+    top:0;/*if the postion is different from static we could adjust the co-ordinates top 0*/
+    left:0;
+    background-size: cover;/*image is setretched ie the parent */
+    background-position: 50% 50%;/*start and end postion occupying by background*/
+    background-repeat: no-repeat;/*do not repeat in a one cycle of the loop*/
+    opacity:0;/*initial opacity is 0 and we will visible by using animation*/
+    z-index: 0;/*less than the header id*/
+    animation: imageAnimation 25s linear infinite;/*animation declaration and ta*/
+}
+
+
+/*set  individulal image of the list item*/
+.slideshow li:nth-child(1){
+    background-image: url("https://vivanta.tajhotels.com/content/dam/vivanta/hotels/VBT-Chandigarh/images/Quick_Peek/Facade_16X7.jpg");
+    
+}
+.slideshow li:nth-child(2){
+    background-image: url("https://www.cleartrip.com//places/hotels/7076/707606/images/ixcjw_phototour14_w.jpg");
+    animation-delay: 5s;/*delay till first complete*/
+    
+}
+.slideshow li:nth-child(3){
+    background-image: url("http://ramadaplazachandigarh.com/wp-content/uploads/2015/01/Ramada-Plaza-Chandigarh.jpg");
+     animation-delay: 10s;
+}
+.slideshow li:nth-child(4){
+    background-image: url("https://exp.cdn-hotels.com/hotels/14000000/13070000/13066700/13066637/5908a754_z.jpg");
+     animation-delay: 15s;
+}
+.slideshow li:nth-child(5){
+    background-image: url("https://goreviews.goibibo.com/the-oberoi-sukhvilas-chandigarh-amrish-kaushal-298332693991g.jpg");
+     animation-delay: 20s;
+}
+/*key frames actually work out our animation*/
+@keyframes imageAnimation{
+    0%{
+        opacity: 0;
+        animation-timing-function: ease-in;
+        
+        
+    }
+    10%{
+        opacity: 1;
+         animation-timing-function: ease-out;
+        
+        
+    }
+    20%{
+        opacity: 1;
+        
+        
+        
+    }
+    35%{
+        opacity: 0;
+       
+        
+        
+    }
+}
+
+/*@keyframes colorAnimation{
+    0%{
+        color:white;
+    }
+    20%{
+        color:white;
+    }
+    40%{
+        color:yellow;
+    }
+    60%{
+        color:white;
+    }
+    80
+}*/
+/* Older browser support - .no-cssanimations class added by modernizr */
+.no-cssanimations .slideshow li {
+	opacity: 1;
+}

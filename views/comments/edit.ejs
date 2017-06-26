@@ -1,0 +1,26 @@
+<%include ../partials/header.ejs%>
+
+<div class="container">
+    <div class="jumbotron">
+       <div class="container">
+        <h1>edit comment</h1>
+        </div>
+    </div>
+    <form action="/hotels/<%= hId %>/comments/<%=comment._id%>?_method=PUT" method="POST">
+        <div class="form-group">
+             <textarea class="form-control" name="commentBody" placeholder="name"><%=comment.text%></textarea>
+            
+        </div>
+        <div>
+            <button cls="btn btn-lg btn-primary btn-block">update</button>
+        </div>
+        
+        
+    </form>
+
+
+
+
+
+
+<%include ../partials/footer.ejs%>

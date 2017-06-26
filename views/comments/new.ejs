@@ -1,0 +1,46 @@
+<% include ../partials/header.ejs%>
+
+    <div class="row" style="margin-left:1%" >
+     <div  style="text-align:center">
+          <h1> Add - Comment To  <%=hotel.name%>  </h1>
+     </div>
+    
+   <div class="col-lg-4 col-md-6 col-sm-8 col-xs-12">
+       
+       <form  action="/hotels/<%=hotel._id%>/comments" method="post" >
+        
+            <div class="form-group">
+                
+                <input class="form-control" type="text" name="text" placeholder="Comment">
+                
+            </div>
+            
+            <!--<div class="form-group">
+                 <input class="form-control" type="text" name="author" placeholder="author">-->
+    
+            </div>
+            
+            <div class="form-group">
+                 <input class="btn btn-lg btn-primary btn-block" type="submit">
+            </div>
+            
+
+       
+    </form>  
+    
+      <a   class="btn btn-md btn-default"href="/">go back</a> 
+       
+       
+   </div>
+  
+     
+   
+ </div>
+    
+
+ 
+<% include ../partials/footer.ejs%>
+
+
+
+

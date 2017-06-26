@@ -1,0 +1,13 @@
+<%include ../views/partials/header.ejs%>
+<h1> Login page</h1>
+
+
+<form action="/login" method="post">
+    <input type="text" name="username" placeholder="username" required autocomplete="off">
+    <input type="password" name="password" placeholder="password" required autocomplete="off">
+    <input type="submit" value="login">
+
+    
+</form>
+
+<%include ../views/partials/footer.ejs%>

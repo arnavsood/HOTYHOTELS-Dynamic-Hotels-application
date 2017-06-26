@@ -1,0 +1,93 @@
+<%include ../partials/header.ejs%>
+
+
+
+
+                       
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <p class="lead">Happy Vacations</p>
+            <div id="map"></div>
+        </div>
+        
+        <div class="col-md-9">
+            <div class="thumbnail">
+                 <img  class="image-responsive" src="<%=content.image%>">
+                 <div class="caption-full">
+                     <h4 class="pull-right">$<%=content.price%>/night</h4>
+                     <h4><a><%=content.name%></a></h4>
+                     <p><%=content.description%></p>
+                     <h5>by- <%= content.author.username %></h5>
+                    <% if( myUser && content.author.id.equals(myUser._id)){ %>
+                     <a href="/hotels/<%= content._id%>/edit"><button class="btn btn-warning btn-xs ">edit</button></a>
+                     <form  class="delete-content"action="/hotels/<%=content._id%>?_method=DELETE" method="POST">
+                        <button class="btn btn-danger btn-xs">delete</button>
+                     </form>  
+                     <% } %>
+                 </div>
+            </div>
+            <div class="well">
+                <div class="text-right">
+                    <a   class="btn btn-success" href="/hotels/<%=content.id%>/comments/new">Add Comment</a>
+                </div>
+                <HR>
+                 <% content.comments.forEach(function(comment){ %>
+                   
+                    <div class=row>
+                        <div class=col-md-12>
+                             
+                           <strong><%= comment.author.username %></strong>
+                           
+                           <% if(myUser && comment.author.id.equals(myUser._id)) {%>
+                               <a  class="btn btn-warning btn-xs pull-right" href="/hotels/<%=content._id%>/comments/<%=comment._id%>/edit">edit</a>
+                               <form class="delete-content" action="/hotels/<%=content._id%>/comments/<%= comment._id%>?_method=DELETE" method="POST">
+                                   <button class= "btn btn-xs btn-warning">delete</button>
+                               </form>
+                           <% } %>
+                           <p>
+                                       <%= comment.text %>
+                           </p>
+                          
+                        </div>
+                    </div>  
+                    <% }) %>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+<script>
+  function initMap() {
+    var lat = <%= content.lat %>;
+    var lng = <%= content.lng %>;
+    var center = {lat: lat, lng: lng };
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 8,
+        center: center,
+        scrollwheel: false
+    });
+    var contentString = `
+      <strong><%= content.name %><br />
+      <%= content.location %></strong>
+      <p><%= content.description %></p>
+    `
+    var infowindow = new google.maps.InfoWindow({
+      content: contentString
+    });
+    var marker = new google.maps.Marker({
+        position: center,
+        map: map
+    });
+    marker.addListener('click', function() {
+      infowindow.open(map, marker);
+    });
+  }
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBP_hOFyQFlsWHKyi2gRSwp82rQgF6I4Pw&callback=initMap"></script>
+
+
+
+
+<%include ../partials/footer.ejs%>
