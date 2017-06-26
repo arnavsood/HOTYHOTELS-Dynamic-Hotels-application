@@ -18,7 +18,9 @@ hotelCreate      =require("./models/h"),
  var authRoute=require("./routes/auth.js");
  
 //connect a db called hotyhotels and If db not exists make a new for us 
-mongoose.connect("mongodb://localhost/hotyhotels");
+//mongoose.connect("mongodb://localhost/hotyhotels");
+mongoose.connect("mongodb://arnavsood:12345@ds139072.mlab.com:39072/hotyhotels");
+//
 //It is only to run our body parser.Please just copy the line every single time
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(__dirname+"/public"));
