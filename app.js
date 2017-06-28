@@ -65,7 +65,6 @@ User.find({},function(err,con){
     console.log(con)
 })
 
-
 app.set("view engine", "ejs");
 
 
