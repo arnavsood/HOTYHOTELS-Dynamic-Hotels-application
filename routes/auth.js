@@ -4,7 +4,9 @@ var express=require("express");
 var router =express.Router();
 var hotelCreate=require("../models/h")
 var passport=require("passport");
-var User=require("../models/user")
+var User=require("../models/user");
+var Cart=require("../models/Cart");
+
 
 //root
 router.get("/",function(req,res)
@@ -13,6 +15,49 @@ router.get("/",function(req,res)
     }
 );
 
+//cart post
+router.post("/hotels/:id/add",function(req, res) {
+    hotelCreate.findById(req.params.id,function(err,foundHotel){
+        if(err){
+            console.log(err)
+        } else{
+            console.log("found out the hotel for the cart");
+            console.log(foundHotel)
+            Cart.create({item:foundHotel.name,price:foundHotel.price},function(err,added){
+                if(err){
+                    console.log(err)
+                } else{
+                    User.findById(req.user._id,function(err, found) {
+                        if(err){
+                            console.log(err)
+                        } else{
+                            found.cart.push(added);
+                            found.save();
+                            console.log("saved")
+                            req.flash("success","added to cart")
+                            res.redirect("/hotels/"+req.params.id)
+                            
+                        }
+                    })
+                }
+            });
+            
+            
+        }
+    })
+  
+})
+
+//cart get
+router.get("/cart",function(req, res) {
+    User.findById(req.user._id).populate("cart").exec(function(err,foundUser){
+        if(err){
+            console.log(err)
+        } else{
+            res.render("cart",{found:foundUser})
+        }
+    })
+})
 //auth routes
 // register
 
@@ -31,7 +76,7 @@ router.post("/register",function(req, res) {
             req.flash("error",err.message);
             return res.redirect("register");
             } 
-            console.log(user);
+            
             
             passport.authenticate("local")(req,res,function(){
                 req.flash("success","welcome you signup successfully as "+user.username);
@@ -57,7 +102,9 @@ router.post("/login",passport.authenticate("local",
 router.get("/logout",function(req, res) {
     req.logout();
     req.flash("success","LoggedOut Sucessfully")
+    
     res.redirect("/hotels")
+   
 })    
 
 module.exports=router;

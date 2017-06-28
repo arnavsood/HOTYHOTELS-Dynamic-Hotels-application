@@ -9,7 +9,8 @@ hotelCreate      =require("./models/h"),
  flash            =require("connect-flash"),  
  User             =require("./models/user"),
  geocoder         = require('geocoder'),
- Comment         =require("./models/comments");
+ Comment         =require("./models/comments"),
+ userCart         =require("./models/Cart");
  
  var methodOverride=require("method-override");
  
@@ -19,8 +20,8 @@ hotelCreate      =require("./models/h"),
  
 //connect a db called hotyhotels and If db not exists make a new for us 
 //mongoose.connect("mongodb://localhost/hotyhotels");
-mongoose.connect("mongodb://arnavsood:12345@ds139072.mlab.com:39072/hotyhotels");
-//
+mongoose.connect(process.env.DATABASEURL);
+
 //It is only to run our body parser.Please just copy the line every single time
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(__dirname+"/public"));
@@ -60,6 +61,9 @@ app.use("/hotels/:id/comments",commentRoutes);
 /*seedsDb();*/
 
 
+User.find({},function(err,con){
+    console.log(con)
+})
 
 
 app.set("view engine", "ejs");

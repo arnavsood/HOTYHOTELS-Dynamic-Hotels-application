@@ -46,6 +46,7 @@ router.post("/",middleware.isloggedIn,function(req,res){
         
            hotel.author.id=req.user._id;
             hotel.save();
+            console.log(hotel);
             req.flash("success","You have created the new hotel");
            res.redirect("/hotels");
            

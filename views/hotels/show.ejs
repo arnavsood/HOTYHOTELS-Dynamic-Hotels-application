@@ -23,8 +23,12 @@
                      <a href="/hotels/<%= content._id%>/edit"><button class="btn btn-warning btn-xs ">edit</button></a>
                      <form  class="delete-content"action="/hotels/<%=content._id%>?_method=DELETE" method="POST">
                         <button class="btn btn-danger btn-xs">delete</button>
-                     </form>  
+                     </form> 
+                    
                      <% } %>
+                      <form action="/hotels/<%=content._id%>/add" method="POST">
+                             <button>add to cart</button>
+                     </form>
                  </div>
             </div>
             <div class="well">
@@ -57,6 +61,12 @@
     </div>
     
 </div>
+
+
+
+
+
+
 
 <script>
   function initMap() {
