@@ -1,33 +1,55 @@
 <%include partials/header.ejs%>
 <div class="container">
-      <table>
-         <thead>
-             <td><h2>item</h1></td>
-             <td><h2>price</h2></td>
-         </thead>
      
-   <%found.cart.forEach(function(incart){%>
    
-     
-   <tr>
-       <td>
-            <div class="item">
-             <h3><%= incart.item%></h3>
-            </div>
-       </td>
-       <td>
-            <h3><%= incart.price%></h3>
-       </td>
-   </tr>
-  
-       
-           
-    <% })%>
- 
-    
-       
-       
+   <div class="row">
+      <br>
+     <%if(found.cart.length>0){%> 
+        <table class=" table table-bordered col-md-6 col-lg-8 col-xs-12 " >
+            <thead>
+                <tr>
+                    <th>S.no.</th>
+                    <th>item</th>
+                    <th>price/day</th>
+                </tr>
+            </thead>
+           <tbody  >
+               <%var number=1,total=0;%>
+               <%found.cart.forEach(function(incart){%>  
+                  
+                  <tr>
+                    <td><%=number++%></td>  
+                
+                     <td><%=incart.item%></td>
+                      <td><%=incart.price%></td>
+                    <form action="/cart/<%=incart._id%>/delete" method="POST">
+                       <td>
+                           <button class="fa fa-times" aria-hidden="true"></button>
+
+                       </td> 
+                    </form>
+                     
+                     <%total=total+Number(incart.price)%>
+                  </tr>
+                  
+               <% })%>
+                   <tr>
+                      <td><strong>Total-</strong><%=total%></td>
+                      
+                  </tr>
+           </tbody>
+        </table>
+          
+
+</h1>
+          
+      
+   </div>
+   <% } else{%>
+       <h2 class="alert alert-danger">Your cart is empty</h2>
+  <% }%>
+   
 </div>
- </table>
+ 
 
 <%include partials/footer.ejs%>

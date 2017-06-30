@@ -118,7 +118,7 @@ router.delete("/:id",middleware.checkHotelOwnership,function(req,res){
            
        }else{
            console.log("deleted");
-           req.flash("error","Deleted Successfully")
+           req.flash("success","Deleted Successfully")
            res.redirect("/hotels");
        }
    })

@@ -6,7 +6,7 @@ var hotelCreate=require("../models/h")
 var passport=require("passport");
 var User=require("../models/user");
 var Cart=require("../models/Cart");
-
+var middleware=require("../middleware");
 
 //root
 router.get("/",function(req,res)
@@ -16,10 +16,11 @@ router.get("/",function(req,res)
 );
 
 //cart post
-router.post("/hotels/:id/add",function(req, res) {
+router.post("/hotels/:id/add",middleware.isloggedIn,function(req, res) {
     hotelCreate.findById(req.params.id,function(err,foundHotel){
         if(err){
-            console.log(err)
+            res.redirect("back");
+            req.flash("error","somthing went wrong")
         } else{
             console.log("found out the hotel for the cart");
             console.log(foundHotel)
@@ -49,7 +50,7 @@ router.post("/hotels/:id/add",function(req, res) {
 })
 
 //cart get
-router.get("/cart",function(req, res) {
+router.get("/cart",middleware.isloggedIn,function(req, res) {
     User.findById(req.user._id).populate("cart").exec(function(err,foundUser){
         if(err){
             console.log(err)
@@ -57,6 +58,18 @@ router.get("/cart",function(req, res) {
             res.render("cart",{found:foundUser})
         }
     })
+})
+
+//delete cart
+router.post("/cart/:id/delete",function(req, res) {
+   Cart.findByIdAndRemove(req.params.id,function(err,deleted){
+       if(err){
+           console.log(err)
+       } else{
+           res.redirect("/cart")
+       }
+   })
+    
 })
 //auth routes
 // register

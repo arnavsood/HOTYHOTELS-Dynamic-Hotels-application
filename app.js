@@ -63,7 +63,9 @@ app.use("/hotels/:id/comments",commentRoutes);
 
 User.find({},function(err,con){
     console.log(con)
+    
 })
+
 
 app.set("view engine", "ejs");
 
